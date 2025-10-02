@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - Victorem</title>
+    <link rel="icon" type="image/x-icon" href="imagenes/logo.png">
+    <link rel="stylesheet" href="miperfil.css">
+
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo-container">
+        <img src="imagenes/logo.png" alt="Victorem Logo" class="logo">
+        <div class="logo-text">VICTOREM</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="main.html">Inicio</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="personalizacion.html">Personaliza</a></li>
+          <li><a href="historia.html">Historia</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li id="auth-nav">
+            <!-- El contenido de este elemento se actualizará dinámicamente -->
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('imagenes/textura.png') center/cover no-repeat;">
+    <div class="container">
+      <h1>Mi Perfil</h1>
+      <p>Gestiona tu cuenta, pedidos y preferencias en Victorem</p>
+    </div>
+  </section>
+
+  <!-- Contenido Principal -->
+  <section class="perfil">
+    <div class="container">
+      <div id="perfil-contenido">
+        <!-- Este contenido se cargará dinámicamente según si el usuario está autenticado o no -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>VICTOREM</h3>
+          <p>Arte en cada balín, elegancia en cada detalle. Creamos joyas únicas que trascienden el tiempo.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>Calle 20 #9-88, Campoalegre, Huila</li>
+            <li>+57 300 123 4567</li>
+            <li>info@victorem.co</li>
+            <li>Lun - Sáb: 9:00 AM - 6:00 PM</li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><a href="#">Política de privacidad</a></li>
+            <li><a href="#">Términos y condiciones</a></li>
+            <li><a href="#">Galería</a></li>
+            <li><a href="#">Cuidado de joyas</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Formas de pago</h3>
+          <div class="metodos-pago">
+            <span class="metodo-pago">VISA</span>
+            <span class="metodo-pago">MC</span>
+            <span class="metodo-pago">AMEX</span>
+            <span class="metodo-pago">PSE</span>
+            <span class="metodo-pago">EFECTY</span>
+            <span class="metodo-pago">NEQUI</span>
+          </div>
+          <p style="margin-top: 15px;">Envíos seguros a toda Colombia</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2024 Victorem. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+  <script src = "miperfil.js" defer></script>
+
+  
+</body>
+
+
+</html>
