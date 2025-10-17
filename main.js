@@ -210,3 +210,4 @@
       // Inicializar estado de autenticación
       checkAuthStatus();
     });
+    

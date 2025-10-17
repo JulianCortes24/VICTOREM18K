@@ -54,20 +54,119 @@
 
       <div class="historia-imagen">
         <div class="historia-imagen-fondo">
-          <img src="imagenes/historia.jpg" alt="Historia Victorem">
+          <img src="imagenes/Historiaa.jpg" alt="Historia Victorem">
           <div class="overlay-gradiente"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Cierre elegante visual -->
-  <section class="historia-cierre">
-    <div class="sello-victorem">
-      <img src="imagenes/logo.png" alt="Sello Victorem">
+  <!-- Modal para inicio de sesión -->
+  <div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="auth-form">
+      <h2>Iniciar Sesión</h2>
+      <div id="loginError" class="error-message"></div>
+      <div id="loginSuccess" class="success-message"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Correo Electrónico</label>
+          <input type="email" id="loginEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" name="password" required>
+        </div>
+        <button type="submit" class="auth-btn">Iniciar Sesión</button>
+      </form>
+      <div class="auth-switch">
+        ¿No tienes una cuenta? <a href="#" id="showRegister">Regístrate aquí</a>
+      </div>
+      <button type="button" id="closeLogin" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
     </div>
-  </section>
-</main>
+  </div>
+
+  <!-- Modal para registro -->
+  <div id="registerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="auth-form">
+      <h2>Crear Cuenta</h2>
+      <div id="registerError" class="error-message"></div>
+      <div id="registerSuccess" class="success-message"></div>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="registerName">Nombre Completo</label>
+          <input type="text" id="registerName" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="registerEmail">Correo Electrónico</label>
+          <input type="email" id="registerEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Contraseña</label>
+          <input type="password" id="registerPassword" name="password" required minlength="6">
+        </div>
+        <div class="form-group">
+          <label for="registerConfirmPassword">Confirmar Contraseña</label>
+          <input type="password" id="registerConfirmPassword" name="confirmPassword" required>
+        </div>
+        <button type="submit" class="auth-btn">Registrarse</button>
+      </form>
+      <div class="auth-switch">
+        ¿Ya tienes una cuenta? <a href="#" id="showLogin">Inicia sesión aquí</a>
+      </div>
+      <button type="button" id="closeRegister" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+    </div>
+  </div>
+
+  <script src="historia.js"></script>
 
 
-    
+<!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>VICTOREM</h3>
+          <p>Arte en cada balín, elegancia en cada detalle. Creamos joyas únicas que trascienden el tiempo.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>Calle 20 #9-88, Campooligre, Huila</li>
+            <li>+57 300 123 4567</li>
+            <li>info@victorem.co</li>
+            <li>Lun - Sáb: 9:00 AM - 6:00 PM</li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><a href="#">Política de privacidad</a></li>
+            <li><a href="#">Términos y condiciones</a></li>
+            <li><a href="#">Galería</a></li>
+            <li><a href="#">Cuidado de joyas</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Formas de pago</h3>
+          <div class="metodos-pago">
+            <span class="metodo-pago">VISA</span>
+            <span class="metodo-pago">MC</span>
+            <span class="metodo-pago">AMEX</span>
+            <span class="metodo-pago">PSE</span>
+            <span class="metodo-pago">EFECTY</span>
+            <span class="metodo-pago">NEQUI</span>
+          </div>
+          <p style="margin-top: 15px;">Envíos seguros a toda Colombia</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2024 Victorem. Todos los derechos reservados.</p>
+      </div>
+    </div>
+    <script src="historia.js" defer></script>
+  </footer>
+
