@@ -594,3 +594,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// En la función que maneja el botón "Comprar ahora", agregar:
+function comprarAhora(producto) {
+  // Verificar si el usuario está autenticado
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  if (!user) {
+    alert('Por favor, inicia sesión para realizar una compra.');
+    // Aquí podrías redirigir a la página de login
+    return;
+  }
+  
+  // Crear objeto de pedido
+  const pedido = {
+    tipo: 'catalogo',
+    producto: producto,
+    cantidad: 1,
+    total: producto.precio,
+    fecha: new Date().toISOString()
+  };
+  
+  // Guardar pedido en localStorage
+  localStorage.setItem('pedidoActual', JSON.stringify(pedido));
+  
+  // Redirigir a checkout
+  window.location.href = 'checkout.html';
+}
