@@ -1,6 +1,6 @@
 
     // Variable global para guardar la sección activa
-    let seccionActiva = 'informacion';
+    let seccionActiva = 'carrito';
 
     document.addEventListener('DOMContentLoaded', function() {
       // Elementos del DOM
@@ -36,7 +36,7 @@
             <li><a href="#" id="loginLink">Iniciar Sesión</a></li>
           `;
           document.getElementById('loginLink').addEventListener('click', function() {
-            window.location.href = 'main.html#login';
+            window.location.href = 'index.html#login';
           });
           
           // Mostrar mensaje de no autenticado
@@ -44,7 +44,7 @@
             <div class="no-auth-message">
               <h2>Acceso Restringido</h2>
               <p>Debes iniciar sesión para acceder a tu perfil.</p>
-              <a href="main.html" class="btn">Ir a Inicio de Sesión</a>
+              <a href="index.html" class="btn">Ir a Inicio de Sesión</a>
             </div>
           `;
         }
@@ -519,7 +519,7 @@
         localStorage.removeItem('carrito');
         
         alert('Tu cuenta ha sido eliminada');
-        window.location.href = 'main.html';
+        window.location.href = 'index.html';
       }
       
       // Funciones globales para el carrito
@@ -589,4 +589,20 @@
       
       // Inicializar
       checkAuthStatus();
+
+      // Funcionalidad del carrito
+      const cartIcon = document.getElementById('cart-icon');
+      if (cartIcon) {
+        cartIcon.addEventListener('click', function() {
+          // Verificar si el usuario está autenticado
+          const user = JSON.parse(localStorage.getItem('currentUser'));
+          if (!user) {
+            alert('Por favor, inicia sesión para ver tu carrito.');
+            window.location.href = 'index.html#login';
+            return;
+          }
+          // Redirigir a la sección del carrito en miperfil.html
+          window.location.href = 'miperfil.html#carrito';
+        });
+      }
     });

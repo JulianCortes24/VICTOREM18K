@@ -209,5 +209,21 @@
 
       // Inicializar estado de autenticación
       checkAuthStatus();
+
+      // Funcionalidad del carrito
+      const cartIcon = document.getElementById('cart-icon');
+      if (cartIcon) {
+        cartIcon.addEventListener('click', function() {
+          // Verificar si el usuario está autenticado
+          const user = JSON.parse(localStorage.getItem('currentUser'));
+          if (!user) {
+            alert('Por favor, inicia sesión para ver tu carrito.');
+            showLoginModal();
+            return;
+          }
+          // Redirigir a la sección del carrito en miperfil.html
+          window.location.href = 'miperfil.html#carrito';
+        });
+      }
     });
     

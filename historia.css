@@ -172,26 +172,96 @@
   background: linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(212,175,55,0.3));
 }
 
-/* Cierre elegante */
-.historia-cierre {
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+/* Sección de Misión y Visión */
+.mision-vision {
+  background-color: #fff;
   padding: 80px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #222;
+}
+
+.mision-vision-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.mision,
+.vision {
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mision {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 5px solid #d4af37;
+}
+
+.vision {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 5px solid #2c3e50;
+}
+
+.mision:hover,
+.vision:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.mision h2,
+.vision h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-family: 'Georgia', serif;
+  font-weight: 600;
+  color: #111;
   position: relative;
 }
 
-.sello-victorem img {
-  width: 100px;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));
-  transition: transform 0.6s ease, opacity 0.3s ease;
+.mision h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #d4af37;
+  margin-top: 8px;
 }
 
-.sello-victorem img:hover {
-  transform: scale(1.1);
-  opacity: 1;
+.vision h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #2c3e50;
+  margin-top: 8px;
+}
+
+.mision p,
+.vision p {
+  line-height: 1.8;
+  font-size: 16px;
+  color: #444;
+  margin: 0;
+}
+
+/* Responsive para Misión y Visión */
+@media (max-width: 768px) {
+  .mision-vision-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .mision,
+  .vision {
+    padding: 30px;
+  }
+
+  .mision h2,
+  .vision h2 {
+    font-size: 24px;
+  }
 }
 
 /* Responsive */

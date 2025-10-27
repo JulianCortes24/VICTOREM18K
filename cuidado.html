@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Victorem</title>
+  <title>Cuidado de Joyas - Victorem</title>
   <link rel="icon" type="image/x-icon" href="imagenes/logo.png">
-  <link rel="stylesheet" href="catalogo.css">
-  <link rel="stylesheet" href="checkout.css">
-</head>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="cuidado.css">
 
+</head>
 <body>
   <!-- Header -->
   <header>
@@ -35,134 +34,62 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero"
-    style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('imagenes/textura.png') center/cover no-repeat;">
+  <section class="cuidado-hero">
     <div class="container">
-      <h1>Finalizar Compra</h1>
-      <p>Completa tus datos para procesar tu pedido.</p>
+      <h1>Cuidado de tus Joyas</h1>
+      <p>Aprende a mantener la belleza y durabilidad de tus piezas en oro laminado 18K</p>
     </div>
   </section>
 
-  <!-- Contenido del Checkout -->
-  <section class="checkout">
-    <div class="container checkout-container">
-      <!-- Formulario de pago -->
-      <div class="checkout-form">
-        <h2 class="checkout-titulo">Información de Pago</h2>
-        
-        <!-- Información de envío -->
-        <div class="form-section">
-          <h3>Información de Envío</h3>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" required>
-            </div>
-            <div class="form-group">
-              <label for="apellido">Apellido</label>
-              <input type="text" id="apellido" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="direccion">Dirección</label>
-            <input type="text" id="direccion" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="ciudad">Ciudad</label>
-              <input type="text" id="ciudad" required>
-            </div>
-            <div class="form-group">
-              <label for="departamento">Departamento</label>
-              <input type="text" id="departamento" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="codigo-postal">Código Postal</label>
-              <input type="text" id="codigo-postal" required>
-            </div>
-            <div class="form-group">
-              <label for="telefono">Teléfono</label>
-              <input type="tel" id="telefono" required>
-            </div>
-          </div>
+  <!-- Contenido Principal -->
+  <section class="cuidado-content">
+    <div class="container">
+      <div class="cuidado-intro">
+        <h2>Consejos para el cuidado de tus joyas Victorem</h2>
+        <p>Nuestras piezas están elaboradas con técnicas artesanales tradicionales y bañadas en oro laminado 18K para garantizar durabilidad y elegancia. Con el cuidado adecuado, tus joyas mantendrán su belleza por años.</p>
+      </div>
+
+      <div class="cuidado-tips">
+        <div class="tip">
+          <div class="tip-icon">🧼</div>
+          <h3>Limpieza Diaria</h3>
+          <p>Limpia tus joyas con un paño suave y seco. Evita el uso de productos químicos agresivos como perfumes, cremas o limpiadores que puedan dañar el baño de oro.</p>
         </div>
 
-        <!-- Método de pago -->
-        <div class="form-section">
-          <h3>Método de Pago</h3>
-          <div class="metodo-pago-opciones">
-            <div class="metodo-pago-opcion" data-metodo="tarjeta">
-              <div class="metodo-pago-icono">💳</div>
-              <div>Tarjeta de Crédito</div>
-            </div>
-            <div class="metodo-pago-opcion" data-metodo="transferencia">
-              <div class="metodo-pago-icono">🏦</div>
-              <div>Transferencia</div>
-            </div>
-          </div>
-
-          <!-- Detalles de tarjeta -->
-          <div class="detalles-tarjeta" id="detalles-tarjeta">
-            <div class="form-group">
-              <label for="numero-tarjeta">Número de Tarjeta</label>
-              <input type="text" id="numero-tarjeta" placeholder="1234 5678 9012 3456">
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="fecha-expiracion">Fecha de Expiración</label>
-                <input type="text" id="fecha-expiracion" placeholder="MM/AA">
-              </div>
-              <div class="form-group">
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" placeholder="123">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="nombre-tarjeta">Nombre en la Tarjeta</label>
-              <input type="text" id="nombre-tarjeta">
-            </div>
-          </div>
-
-          <!-- Detalles de transferencia -->
-          <div class="detalles-tarjeta" id="detalles-transferencia">
-            <p>Para completar tu compra, realiza una transferencia a:</p>
-            <p><strong>Banco: Banco de Bogotá</strong></p>
-            <p><strong>Cuenta: 123-456789-00</strong></p>
-            <p><strong>Titular: Victorem Joyería</strong></p>
-            <p>Una vez realizada la transferencia, envíanos el comprobante a info@victorem.co</p>
-          </div>
+        <div class="tip">
+          <div class="tip-icon">💧</div>
+          <h3>Evita el Agua</h3>
+          <p>Retira tus joyas antes de ducharte, nadar o realizar actividades que involucren contacto prolongado con agua. El oro laminado puede desgastarse con el tiempo si está expuesto constantemente a la humedad.</p>
         </div>
 
-        <!-- Botón de pago -->
-        <button class="btn-pagar" id="btn-pagar">Realizar Pago</button>
+        <div class="tip">
+          <div class="tip-icon">📦</div>
+          <h3>Almacenamiento</h3>
+          <p>Guarda tus joyas en un lugar fresco y seco, preferiblemente en sus estuches originales o en bolsas de tela suave. Evita el contacto con otras joyas para prevenir rayones.</p>
+        </div>
 
-        <!-- Mensaje de éxito -->
-        <div class="mensaje-exito" id="mensaje-exito">
-          <div class="icono-exito">✓</div>
-          <h2>¡Pago Completado!</h2>
-          <p>Tu pedido ha sido procesado exitosamente.</p>
-          <p>Recibirás un correo de confirmación en breve.</p>
-          <p><strong>Número de pedido: #VM-<span id="numero-pedido"></span></strong></p>
-          <a href="index.html" class="btn" style="margin-top: 20px;">Volver al Inicio</a>
+        <div class="tip">
+          <div class="tip-icon">⚠️</div>
+          <h3>Precauciones</h3>
+          <p>No uses tus joyas durante actividades físicas intensas o trabajos manuales. El sudor y la fricción pueden acelerar el desgaste del baño de oro.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-icon">🔧</div>
+          <h3>Mantenimiento Profesional</h3>
+          <p>Para una limpieza profunda o reparaciones, acude a un joyero especializado. Evita intentarlo por tu cuenta para no dañar la artesanía.</p>
+        </div>
+
+        <div class="tip">
+          <div class="tip-icon">⏰</div>
+          <h3>Inspección Regular</h3>
+          <p>Revisa periódicamente el estado de tus joyas. Si notas desgaste en el baño de oro, considera un retoque profesional para mantener su apariencia original.</p>
         </div>
       </div>
 
-      <!-- Resumen del pedido -->
-      <div class="checkout-resumen">
-        <h2 class="checkout-titulo">Resumen del Pedido</h2>
-        <div id="resumen-pedido">
-          <!-- El contenido se cargará dinámicamente -->
-        </div>
-        <div class="resumen-linea">
-          <span>Envío:</span>
-          <span>$10.000</span>
-        </div>
-        <div class="resumen-total">
-          <span>Total:</span>
-          <span id="total-pedido">$0</span>
-        </div>
+      <div class="cuidado-nota">
+        <h3>Nota Importante</h3>
+        <p>El oro laminado 18K es resistente, pero no indestructible. Con estos cuidados simples, tus piezas Victorem te acompañarán por muchos años, manteniendo su elegancia y valor sentimental.</p>
       </div>
     </div>
   </section>
@@ -273,7 +200,5 @@
   </div>
 
   <script src="main.js"></script>
-  <script src="checkout.js"></script>
 </body>
-
 </html>
