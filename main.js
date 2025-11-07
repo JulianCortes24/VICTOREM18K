@@ -225,5 +225,21 @@
           window.location.href = 'miperfil.html#carrito';
         });
       }
+
+      // Funcionalidad del carrito en el footer
+      const cartIconFooter = document.getElementById('cart-icon-footer');
+      if (cartIconFooter) {
+        cartIconFooter.addEventListener('click', function() {
+          // Verificar si el usuario está autenticado
+          const user = JSON.parse(localStorage.getItem('currentUser'));
+          if (!user) {
+            alert('Por favor, inicia sesión para ver tu carrito.');
+            showLoginModal();
+            return;
+          }
+          // Redirigir a la sección del carrito en miperfil.html
+          window.location.href = 'miperfil.html#carrito';
+        });
+      }
     });
     
