@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Botón para proceder al pago
   const procederPagoBtn = document.getElementById('proceder-pago-personalizado');
+  const agregarAlCarritoBtn = document.getElementById('agregar-al-carrito');
 
   // Inicializar eventos
   function inicializarEventos() {
@@ -114,6 +115,46 @@ document.addEventListener('DOMContentLoaded', function() {
     procederPagoBtn.addEventListener('click', function() {
       procederAlPago();
     });
+
+    // Evento para agregar al carrito
+    if (agregarAlCarritoBtn) {
+      agregarAlCarritoBtn.addEventListener('click', function() {
+        // Asegurarnos de tener el resumen actualizado
+        calcularResumen();
+
+        // Construir el item para el carrito
+        const tipo = datosPersonalizacion.tipoJoya;
+        const imagen = tipo === 'pulsera' ? 'imagenes/pulsera icono.png' : 'imagenes/anillo icono.png';
+        const nombre = tipo === 'pulsera' ? 'Pulsera Personalizada' : 'Anillo Personalizado';
+        const precioFormateado = '$' + datosPersonalizacion.total.toLocaleString();
+
+        const item = {
+          id: 'personalizado-' + Date.now(),
+          nombre: nombre,
+          precio: precioFormateado,
+          imagen: imagen,
+          cantidad: 1,
+          detalles: { ...datosPersonalizacion }
+        };
+
+        // Guardar en localStorage
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.push(item);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        // Avisar al usuario y ofrecer ir al carrito
+        const irAlCarrito = confirm('Producto agregado al carrito. ¿Deseas ir al carrito ahora?');
+        if (irAlCarrito) {
+          const user = JSON.parse(localStorage.getItem('currentUser'));
+          if (user) {
+            window.location.href = 'miperfil.html#carrito';
+          } else {
+            // Si no está autenticado, pedir iniciar sesión
+            window.location.href = 'index.html#login';
+          }
+        }
+      });
+    }
   }
 
   // Validar paso actual

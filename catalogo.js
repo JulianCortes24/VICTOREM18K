@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    // Funcionalidad de búsqueda y filtros
+    // Funcionalidad de búsqueda y filtros (guardamos elementos por si se carga este script en páginas sin filtros)
     const busquedaInput = document.getElementById('busqueda');
     const categoriaSelect = document.getElementById('categoria');
     const precioSelect = document.getElementById('precio');
@@ -395,13 +395,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const limpiarFiltrosBtn = document.getElementById('limpiar-filtros');
     const ordenarSelect = document.getElementById('ordenar');
     const productosContainer = document.getElementById('lista-productos');
-    const cards = Array.from(productosContainer.querySelectorAll('.card'));
+    const cards = productosContainer ? Array.from(productosContainer.querySelectorAll('.card')) : [];
 
     // Función para filtrar productos
     function filtrarProductos() {
-        const terminoBusqueda = busquedaInput.value.toLowerCase();
-        const categoriaSeleccionada = categoriaSelect.value;
-        const rangoPrecio = precioSelect.value;
+        const terminoBusqueda = busquedaInput ? busquedaInput.value.toLowerCase() : '';
+        const categoriaSeleccionada = categoriaSelect ? categoriaSelect.value : 'todos';
+        const rangoPrecio = precioSelect ? precioSelect.value : 'todos';
 
         cards.forEach(card => {
             const nombreProducto = card.querySelector('h3').textContent.toLowerCase();
@@ -419,12 +419,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Actualizar título del catálogo
+        // Actualizar título del catálogo (si existe en la página)
         const catalogoTitulo = document.querySelector('.catalogo-titulo');
-        const productosVisibles = cards.filter(card => card.style.display !== 'none').length;
-        catalogoTitulo.textContent = productosVisibles === cards.length ?
-            'Todos los Productos' :
-            `Productos Encontrados (${productosVisibles})`;
+        if (catalogoTitulo) {
+            const productosVisibles = cards.filter(card => card.style.display !== 'none').length;
+            catalogoTitulo.textContent = productosVisibles === cards.length ?
+                'Todos los Productos' :
+                `Productos Encontrados (${productosVisibles})`;
+        }
     }
 
     // Función para verificar si el precio está en el rango seleccionado
@@ -480,13 +482,13 @@ document.addEventListener('DOMContentLoaded', function () {
         filtrarProductos();
     }
 
-    // Event Listeners para filtros
-    aplicarFiltrosBtn.addEventListener('click', filtrarProductos);
-    limpiarFiltrosBtn.addEventListener('click', limpiarFiltros);
-    ordenarSelect.addEventListener('change', ordenarProductos);
+    // Event Listeners para filtros (añadir solo si existen los elementos)
+    if (aplicarFiltrosBtn) aplicarFiltrosBtn.addEventListener('click', filtrarProductos);
+    if (limpiarFiltrosBtn) limpiarFiltrosBtn.addEventListener('click', limpiarFiltros);
+    if (ordenarSelect) ordenarSelect.addEventListener('change', ordenarProductos);
 
     // Búsqueda en tiempo real
-    busquedaInput.addEventListener('input', filtrarProductos);
+    if (busquedaInput) busquedaInput.addEventListener('input', filtrarProductos);
 
     // Funcionalidad del modal de productos
     const modal = document.getElementById('modal-producto');
