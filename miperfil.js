@@ -420,9 +420,48 @@
         // Proceder al pago
         const procederPagoBtn = document.getElementById('proceder-pago');
         if (procederPagoBtn) {
-          procederPagoBtn.addEventListener('click', function() {
-            alert('Funcionalidad de pago en desarrollo. Próximamente disponible.');
-          });
+            procederPagoBtn.addEventListener('click', function() {
+              // Obtener carrito actual
+              const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+              if (carrito.length === 0) {
+                alert('Tu carrito está vacío. Agrega productos antes de proceder.');
+                return;
+              }
+
+              // Verificar autenticación
+              const user = JSON.parse(localStorage.getItem('currentUser'));
+              if (!user) {
+                alert('Por favor, inicia sesión para proceder al pago.');
+                window.location.href = 'index.html#login';
+                return;
+              }
+
+              // Construir objeto de pedido tipo 'carrito'
+              const productosPedido = carrito.map(item => {
+                const precioNum = parseInt((item.precio || '').toString().replace(/\D/g, ''), 10) || 0;
+                return {
+                  id: item.id || null,
+                  nombre: item.nombre,
+                  imagen: item.imagen,
+                  precioFormateado: item.precio,
+                  precio: precioNum,
+                  cantidad: item.cantidad || 1
+                };
+              });
+
+              const subtotal = productosPedido.reduce((s, p) => s + (p.precio * p.cantidad), 0);
+
+              const pedido = {
+                tipo: 'carrito',
+                productos: productosPedido,
+                total: subtotal,
+                fecha: new Date().toISOString()
+              };
+
+              localStorage.setItem('pedidoActual', JSON.stringify(pedido));
+              window.location.href = 'checkout.html';
+            });
         }
       }
       
@@ -567,8 +606,32 @@
         const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         const producto = carrito[index];
         if (producto) {
-          alert(`Comprando: ${producto.nombre}\nCantidad: ${producto.cantidad}\nTotal: ${producto.precio}`);
-          // Aquí podrías redirigir a una página de checkout
+          // Verificar autenticación
+          const user = JSON.parse(localStorage.getItem('currentUser'));
+          if (!user) {
+            alert('Por favor, inicia sesión para realizar una compra.');
+            window.location.href = 'index.html#login';
+            return;
+          }
+
+          // Construir pedido con un solo producto
+          const precioNum = parseInt((producto.precio || '').toString().replace(/\D/g, ''), 10) || 0;
+          const pedido = {
+            tipo: 'carrito',
+            productos: [{
+              id: producto.id || null,
+              nombre: producto.nombre,
+              imagen: producto.imagen,
+              precioFormateado: producto.precio,
+              precio: precioNum,
+              cantidad: producto.cantidad || 1
+            }],
+            total: precioNum * (producto.cantidad || 1),
+            fecha: new Date().toISOString()
+          };
+
+          localStorage.setItem('pedidoActual', JSON.stringify(pedido));
+          window.location.href = 'checkout.html';
         }
       };
       

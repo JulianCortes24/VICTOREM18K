@@ -46,46 +46,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let html = '';
-    
-    if (pedido.tipo === 'personalizado') {
-    const detalles = pedido.detalles;
-    let descripcion = '';
-    
-    if (detalles.tipoJoya === 'pulsera') {
-      descripcion = `Pulsera con dije ${obtenerNombreDije(detalles.dije)}, color ${detalles.colorHilo}, ${detalles.cantidadBalines} balines`;
-    } else {
-      descripcion = `Anillo color ${detalles.colorHilo}, ${detalles.cantidadBalines} balines`;
-    }
-    
-    // RESUMEN 
 
-    html = `
-      <div class="resumen-producto">
-        <img src="imagenes/dijes/${detalles.dije}.jpg" alt="${detalles.tipoJoya === 'pulsera' ? 'Pulsera Personalizada' : 'Anillo Personalizado'}" class="resumen-img" onerror="this.src='imagenes/logo.png'">
-        <div class="resumen-info">
-          <div class="resumen-nombre">${detalles.tipoJoya === 'pulsera' ? 'Pulsera Personalizada' : 'Anillo Personalizado'}</div>
-          <div class="resumen-detalles">${descripcion}</div>
+    if (pedido.tipo === 'catalogo') {
+      const prod = pedido.producto;
+      const precioFormateado = pedido.precioFormateado || (`$${pedido.total.toLocaleString()}`);
+
+      html = `
+        <div class="resumen-producto">
+          <img src="${prod.imagen}" alt="${prod.nombre}" class="resumen-img" onerror="this.src='imagenes/logo.png'">
+          <div class="resumen-info">
+            <div class="resumen-nombre">${prod.nombre}</div>
+            <div class="resumen-detalles">Cantidad: ${pedido.cantidad}</div>
+          </div>
+          <div class="resumen-precio">${precioFormateado}</div>
         </div>
-        <div class="resumen-precio">$${pedido.total.toLocaleString()}</div>
-      </div>
-    `;
+      `;
 
     } else if (pedido.tipo === 'personalizado') {
       // Producto personalizado
       const detalles = pedido.detalles;
       let descripcion = '';
-      
+
       if (detalles.tipoJoya === 'pulsera') {
         descripcion = `Pulsera con dije ${obtenerNombreDije(detalles.dije)}, color ${detalles.colorHilo}, ${detalles.cantidadBalines} balines`;
       } else {
         descripcion = `Anillo color ${detalles.colorHilo}, ${detalles.cantidadBalines} balines`;
       }
-      
+
       html = `
         <div class="resumen-producto">
-          <div class="resumen-img" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-            <span style="font-size: 24px;">${detalles.tipoJoya === 'pulsera' ? '📿' : '💍'}</span>
-          </div>
+          <img src="imagenes/dijes/${detalles.dije}.jpg" alt="${detalles.tipoJoya === 'pulsera' ? 'Pulsera Personalizada' : 'Anillo Personalizado'}" class="resumen-img" onerror="this.src='imagenes/logo.png'">
           <div class="resumen-info">
             <div class="resumen-nombre">${detalles.tipoJoya === 'pulsera' ? 'Pulsera Personalizada' : 'Anillo Personalizado'}</div>
             <div class="resumen-detalles">${descripcion}</div>
@@ -94,11 +84,34 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       `;
     }
-    
+    else if (pedido.tipo === 'carrito') {
+      // Mostrar todos los productos del carrito
+      const productos = pedido.productos || [];
+      const itemsHtml = productos.map(p => {
+        const precioForm = p.precioFormateado || (`$${(p.precio || 0).toLocaleString()}`);
+        return `
+          <div class="resumen-producto" style="display:flex; align-items:center;">
+            <img src="${p.imagen}" alt="${p.nombre}" class="resumen-img" style="width:80px; height:80px; object-fit:cover; margin-right:12px;" onerror="this.src='imagenes/logo.png'">
+            <div class="resumen-info" style="flex:1">
+              <div class="resumen-nombre">${p.nombre}</div>
+              <div class="resumen-detalles">Cantidad: ${p.cantidad}</div>
+            </div>
+            <div class="resumen-precio">${precioForm}</div>
+          </div>
+        `;
+      }).join('');
+
+      html = `
+        <div class="resumen-carrito">
+          ${itemsHtml}
+        </div>
+      `;
+    }
+
     resumenPedido.innerHTML = html;
-    
-    // Calcular total con envío
-    const totalConEnvio = pedido.total + 10000;
+
+    // Calcular total con envío (si pedido.total es numérico)
+    const totalConEnvio = (Number(pedido.total) || 0) + 10000;
     totalPedido.textContent = `$${totalConEnvio.toLocaleString()}`;
   }
 

@@ -609,6 +609,46 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.add('active');
         });
     });
+
+    // Botón "Comprar Ahora" del modal: guarda pedido y redirige a checkout
+    const btnComprarAhora = document.getElementById('comprar-ahora');
+    if (btnComprarAhora) {
+        btnComprarAhora.addEventListener('click', function () {
+            const productoId = document.querySelector('.btn-detalle.active')?.getAttribute('data-producto');
+            if (!productoId) return;
+
+            const producto = productos[productoId];
+
+            // Verificar autenticación
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Por favor, inicia sesión para realizar una compra.');
+                // Mostrar modal de login definido en este archivo
+                showLoginModal();
+                return;
+            }
+
+            // Parsear precio numérico (ej: "$125.000" -> 125000)
+            const precioNum = parseInt((producto.precio || '').replace(/[^0-9]/g, ''), 10) || 0;
+
+            const pedido = {
+                tipo: 'catalogo',
+                producto: {
+                    id: productoId,
+                    nombre: producto.nombre,
+                    imagen: producto.imagen
+                },
+                cantidad: 1,
+                total: precioNum,
+                precioFormateado: producto.precio,
+                fecha: new Date().toISOString()
+            };
+
+            // Guardar pedido y redirigir
+            localStorage.setItem('pedidoActual', JSON.stringify(pedido));
+            window.location.href = 'checkout.html';
+        });
+    }
 });
 
 // En la función que maneja el botón "Comprar ahora", agregar:
