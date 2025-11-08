@@ -14,19 +14,6 @@ const checkoutRoutes = require('./routes/checkout');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Diagnostic logs to help debug Railway deploys (do not print secrets)
-console.log('STARTUP DIAGNOSTIC: NODE_ENV present=', !!process.env.NODE_ENV, 'PORT present=', !!process.env.PORT, 'DATABASE_URL present=', !!process.env.DATABASE_URL);
-
-process.on('unhandledRejection', (reason, p) => {
-  console.error('Unhandled Rejection at Promise', p, 'reason:', reason);
-});
-
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception thrown:', err);
-  // allow the process to crash after logging
-  process.exit(1);
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: true, credentials: true }));
