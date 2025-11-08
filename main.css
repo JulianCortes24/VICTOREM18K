@@ -78,7 +78,10 @@
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), center/cover no-repeat;
       color: #fff;
       text-align: center;
-      padding: 100px 20px;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .hero-logo {
