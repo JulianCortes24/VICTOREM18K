@@ -148,21 +148,32 @@ document.addEventListener('DOMContentLoaded', function() {
     btnPagar.disabled = true;
     btnPagar.textContent = 'Procesando...';
     
-    // Simular demora de procesamiento
-    setTimeout(function() {
-      // Generar número de pedido aleatorio
-      const numPedido = Math.floor(100000 + Math.random() * 900000);
-      numeroPedido.textContent = numPedido;
-      
-      // Mostrar mensaje de éxito
-      mensajeExito.classList.add('activo');
-      
-      // Guardar pedido en historial
-      guardarEnHistorial(numPedido);
-      
-      // Limpiar pedido actual
-      localStorage.removeItem('pedidoActual');
-    }, 2000);
+    // Procesar pago usando la API
+    guardarEnHistorial().then(() => {
+      // Obtener el número de pedido del último pedido creado
+      window.api.getOrders().then(data => {
+        if (data.orders && data.orders.length > 0) {
+          const ultimoPedido = data.orders[0];
+          numeroPedido.textContent = ultimoPedido.numeroPedido;
+          
+          // Mostrar mensaje de éxito
+          mensajeExito.classList.add('activo');
+          
+          // Limpiar pedido actual
+          localStorage.removeItem('pedidoActual');
+        }
+      }).catch(error => {
+        console.error('Error al obtener pedido:', error);
+        // Mostrar mensaje de éxito de todas formas
+        mensajeExito.classList.add('activo');
+        localStorage.removeItem('pedidoActual');
+      });
+    }).catch(error => {
+      console.error('Error al procesar pago:', error);
+      btnPagar.disabled = false;
+      btnPagar.textContent = 'Pagar';
+      alert('Error al procesar el pago. Por favor, intenta nuevamente.');
+    });
   }
 
   // Validar formulario
@@ -194,31 +205,45 @@ document.addEventListener('DOMContentLoaded', function() {
     return true;
   }
 
-  // Guardar pedido en historial
-  function guardarEnHistorial(numeroPedido) {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
+  // Guardar pedido en historial usando la API
+  async function guardarEnHistorial(numeroPedido) {
+    const user = window.auth ? window.auth.getCurrentUser() : null;
     if (!user) return;
     
-    // Obtener historial actual o crear uno nuevo
-    let historial = JSON.parse(localStorage.getItem('historialPedidos')) || {};
+    // Obtener datos del formulario
+    const metodoSeleccionado = document.querySelector('.metodo-pago-opcion.seleccionado');
+    const metodoPago = metodoSeleccionado ? metodoSeleccionado.getAttribute('data-metodo') : 'transferencia';
     
-    // Si el usuario no tiene historial, crear uno
-    if (!historial[user.email]) {
-      historial[user.email] = [];
-    }
-    
-    // Agregar pedido al historial
-    const pedidoCompleto = {
-      ...pedido,
-      numeroPedido: numeroPedido,
-      fecha: new Date().toISOString(),
-      estado: 'Completado'
+    const direccionEntrega = {
+      nombre: document.getElementById('nombre').value,
+      apellido: document.getElementById('apellido').value,
+      direccion: document.getElementById('direccion').value,
+      ciudad: document.getElementById('ciudad').value,
+      departamento: document.getElementById('departamento').value,
+      codigoPostal: document.getElementById('codigo-postal').value,
+      telefono: document.getElementById('telefono').value
     };
     
-    historial[user.email].push(pedidoCompleto);
-    
-    // Guardar en localStorage
-    localStorage.setItem('historialPedidos', JSON.stringify(historial));
+    try {
+      // Crear pedido usando la API
+      const orderData = {
+        tipo: pedido.tipo,
+        productos: pedido.tipo === 'carrito' ? pedido.productos : (pedido.tipo === 'personalizado' ? [pedido.detalles] : [pedido.producto]),
+        total: pedido.total,
+        direccionEntrega: JSON.stringify(direccionEntrega),
+        metodoPago: metodoPago
+      };
+      
+      await window.api.createOrder(orderData);
+      
+      // Limpiar carrito si el pedido era del carrito
+      if (pedido.tipo === 'carrito') {
+        await window.api.clearCart();
+      }
+    } catch (error) {
+      console.error('Error al guardar pedido:', error);
+      alert('Error al guardar el pedido. Por favor, contacta al soporte.');
+    }
   }
 
   // Inicializar la aplicación
