@@ -22,7 +22,18 @@ db.all('SELECT id, name, email, registrationDate FROM users', [], (err, users) =
       users.forEach((user, index) => {
         console.log(`   ${index + 1}. ${user.name}`);
         console.log(`      Email: ${user.email}`);
-        console.log(`      Registrado: ${new Date(user.registrationDate).toLocaleDateString('es-ES')}`);
+        // Mostrar fecha de registro de forma robusta
+        let ts = user.registrationDate;
+        if (typeof ts === 'string' && ts.trim() !== '') ts = Number(ts);
+        let fechaStr = 'N/A';
+        if (typeof ts === 'number' && Number.isFinite(ts) && ts > 0) {
+          try {
+            fechaStr = new Date(Number(ts)).toLocaleDateString('es-ES');
+          } catch (e) {
+            fechaStr = 'N/A';
+          }
+        }
+        console.log(`      Registrado: ${fechaStr}`);
         console.log('');
       });
     }
